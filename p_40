@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en"><head>
+  <script src="libraries/p5.js"></script>
+  <script src="libraries/p5.dom.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+  <script src="libraries/matter.js"></script>
+  <script src="libraries/p5.play.js"></script>
+
+
+  <script src="js/form.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/player.js"></script>
+  
+  
+   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCiDyavPAEEIZnWp0szm8xyFo0eTyA0GHU",
+    authDomain: "project40-e7e65.firebaseapp.com",
+    projectId: "project40-e7e65",
+    storageBucket: "project40-e7e65.appspot.com",
+    messagingSenderId: "847115660064",
+    appId: "1:847115660064:web:82415f00223ab9c106c545"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+// Your web app's Firebase configuration
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+</script>
+
+<script src="js/Player.js"></script>
+    <script src="js/Form.js"></script>
+    <script src="js/Game.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+
+</head>
+<body>
+  <script src="sketch.js"></script>
+
+
+</body></html>
+var database;
+var back_img;
+var gameState =0;
+var playerCount = 0;
+var allPlayers;
+
+var player, form,game;
+var player1,player2;
+var players;
+var fruits;
+var fruitGroup;
+var fruit1_img, fruit2_img, fruit3_img, fruit4_img, fruit5_img;
+var player_img;
+
+
+function preload(){
+  back_img = loadImage("images/jungle.jpg");
+  player_img = loadImage("images/basket2.png");
+  fruit1_img = loadImage("images/apple2.png");
+  fruit2_img = loadImage("images/banana2.png");
+  fruit3_img = loadImage("images/melon2.png");
+  fruit4_img = loadImage("images/orange2.png");
+  fruit5_img = loadImage("images/pineapple2.png");
+  fruitGroup = new Group();
+}
+function setup() {
+  createCanvas(1000, 600);
+  database = firebase.database();
+  game = new Game();
+  game.getState();
+  game.start();
+  
+}
+
+function draw() {
+  background(back_img);
+  
+   if (playerCount === 2) {
+     game.update(1);
+   }
+   if (gameState === 1) {
+     clear(); 
+     game.play();
+   }
+   if (gameState === 2) {
+    
+     game.end();
+   }
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+  border: 5px solid maroon;
+  margin-right:auto;
+  margin-left:auto;
+  margin-top: 100px;
+}
